@@ -1,0 +1,25 @@
+<%- include('../partials/header') %>
+
+    <div class="starter-template">
+        <h1>Notícias privadas</h1>
+        <table>
+            <tr>
+                <tr>
+                    <th>Noticia</th>
+                    <th>Conteúdo</th>
+                    <th>Categoria</th>
+                </tr>
+                <% noticias.forEach( noticia => { %>
+                    <tr>
+                        <td><%=noticia.title%></td>
+                        <td><%=noticia.content%></td>
+                        <td><%=noticia.category%></td>
+                    </tr>
+                <% }) %>
+            </tr>
+        </table>
+    </div>
+
+    <!-- <%= JSON.stringify(locals) %> -->
+
+    <%- include('../partials/footer') %>
