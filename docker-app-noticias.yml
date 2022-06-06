@@ -1,0 +1,30 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:1.17.6-alpine
+    container_name: nginx-proxy
+    volumes:
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - /etc/httpd/httpscertificate/:/etc/httpd/httpscertificate/
+    ports:
+      - 443:443
+      - 80:80
+  app:
+    build: .
+    image: img-node-noticias-docker:latest
+    environment:
+      # NODE_ENV: development
+      FACEBOOK_ID: "${FACEBOOK_ID}"
+      FACEBOOK_SECRET:  "${FACEBOOK_SECRET}"
+      GOOGLE_ID:  "${GOOGLE_ID}"
+      GOOGLE_SECRET:   "${GOOGLE_SECRET}"
+      MONGO_DB: "${MONGO_DB}"
+    # command: /usr/local/bin/yarn start
+    tty: true
+    ports:
+      - '3000'
+    depends_on:
+      - nginx
+  #     - mongodb
+  # mongodb:
+  #   image: mongo:3.2.5
